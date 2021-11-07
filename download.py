@@ -180,12 +180,12 @@ class DataDownloader:
 if __name__ == '__main__':
     """Print Informations"""
     dd = DataDownloader()
-    regions = ['PLK', 'JHM' ,'ZLK']
+    regions = ['PLK', 'JHM' ,'VYS']
     data = dd.get_dict(regions)
-
+    # TODO ake su stlpce vypisat!!!
     for reg in regions:
         print("-------------------------------")
         print("Region:", reg)
         this_region_data = data[np.char.startswith(data['p1'], dd.regions[reg], start=0, end=2)]
         print("Pocet zaznamov pre region: ", this_region_data.size)
-    print("Celkovy pocet zaznamov:", data[np.invert(np.char.startswith(data['p1'], dd.regions['PLK'], start=0, end=2) | np.char.startswith(data['p1'], dd.regions['JHM'], start=0, end=2) | np.char.startswith(data['p1'], dd.regions['ZLK'], start=0, end=2))])
+    print("Celkovy pocet zaznamov:", len(data))
