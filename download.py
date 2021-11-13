@@ -14,16 +14,21 @@ import requests
 import os
 
 
-# Kromě vestavěných knihoven (os, sys, re, requests …) byste si měli vystačit s: gzip, pickle, csv, zipfile, numpy, matplotlib, BeautifulSoup.
+# Kromě vestavěných knihoven (os, sys, re, requests …) byste si měli vystačit s: gzip, pickle, csv, zipfile,
+# numpy, matplotlib, BeautifulSoup.
 # Další knihovny je možné použít po schválení opravujícím (např ve fóru WIS).
 
 
 class DataDownloader:
-    """ TODO: dokumentacni retezce 
-
+    """
+    Trieda ktora zabezpecuje stiahnutie dat zo stranky a nasledne prvotne spracovanie tychto dat.
     Attributes:
         headers    Nazvy hlavicek jednotlivych CSV souboru, tyto nazvy nemente!  
         regions     Dictionary s nazvy kraju : nazev csv souboru
+        headers_types   Typy jednotlivych stlpcov
+        valid_cols   Cisla validnych stlpcov
+        valid_headers   Nazvy validnych stlpcov
+        fetched_regions Regiony, ktore su ulozene v pameti pre neskorsie pouzitie, aby sa nemuseli znova nacitat.
     """
 
     headers = ["p1", "p36", "p37", "p2a", "weekdayp2a", "p2b", "p6", "p7", "p8", "p9", "p10", "p11", "p12", "p13a",
@@ -75,6 +80,10 @@ class DataDownloader:
         self._cache_filename = cache_filename
 
     def download_data(self):
+        """
+        Metoda, ktora pristupi na stranku a najde na nej vsetky potrebne nazvy suborov, ktore nasledne stiahne do
+        urceneho adresara.
+        """
         page = requests.get(self._url)
         htmlParser = BeautifulSoup(page.text, 'html.parser')
         if not os.path.isdir(self._folder):
@@ -84,17 +93,24 @@ class DataDownloader:
             download_uri = re.search(r'download\(\'(.*?)\'\)', button.get('onclick'), flags=re.DOTALL).group(1)
             filename = re.search(r'[.*/](.*?.zip)', download_uri).group(1)
 
-            print('Downloading:', filename)
+            # print('Downloading:', filename)
 
             downloaded_file = requests.get(self._url + download_uri, stream=True)
             with open(os.path.join(self._folder, filename), 'wb') as f:
-                for data in downloaded_file.iter_content(512):
-                    f.write(data)
+                for _data in downloaded_file.iter_content(512):
+                    f.write(_data)
 
-            print('Completed download:', filename)
+            # print('Completed download:', filename)
 
     def parse_region_data(self, region):
-        """PARSE REGION"""
+        """
+        Metoda, ktora na zaklade zadaneho regionu vytvori numpy pole, zo vsetkych stiahnutych suborov daneho regionu.
+        Args:
+            region: Region, ktory chceme spracovat do numpy zo stiahnutych suborov.
+
+        Returns:
+            numpy pole vsetkych dat zo suborov
+        """""
         if not os.path.isdir(self._folder) or not os.listdir(self._folder):
             self.download_data()
         result_data = []
@@ -108,7 +124,7 @@ class DataDownloader:
                         for row in np_file:
                             if len(row) > 0 and not idchecker.get(row[0]):
                                 idchecker[row[0]] = True
-                                newRow = '+@+'.join(row).replace(';','-')
+                                newRow = '+@+'.join(row).replace(';', '-')
                                 newRow = newRow.split('+@+')
                                 result_data.append('"' + '";"'.join(newRow) + '"')
         del idchecker
@@ -150,14 +166,23 @@ class DataDownloader:
         return unique_data
 
     def get_dict(self, regions=None):
+        """
+        Metoda, ktora ziska data regionov bud z pameti, pomocnych suborov alebo zo zdrojovych suborov, ktore si stiahne
+        ak ich uz nema stiahnute.
+        Args:
+            regions: regiony, z ktore chceme nacitat
+
+        Returns:
+            numpy pole danych regionov
+        """
         regs = regions
         if regions is None or len(regions) == 0:
             regs = self.regions.keys()
 
         return_regions = None
         for reg in regs:
-            print('Fetching region ', reg, '...')
-            starttime = time.time()
+            # print('Fetching region ', reg, '...')
+            # starttime = time.time()
             if reg in self.fetched_regions.keys():
                 continue
             elif os.path.exists(os.path.join(self._folder, self._cache_filename.format(reg))):
@@ -167,7 +192,7 @@ class DataDownloader:
                 self.fetched_regions[reg] = self.parse_region_data(reg)
                 with gzip.open(os.path.join(self._folder, self._cache_filename.format(reg)), 'wb') as region_file:
                     pickle.dump(self.fetched_regions[reg], region_file)
-            print("Region ", reg, " -> ", time.time() - starttime)
+            # print("Region ", reg, " -> ", time.time() - starttime)
             if return_regions is None:
                 return_regions = self.fetched_regions[reg]
             else:
@@ -176,16 +201,14 @@ class DataDownloader:
         return return_regions
 
 
-# TODO vypsat zakladni informace pri spusteni python3 download.py (ne pri importu modulu)
 if __name__ == '__main__':
-    """Print Informations"""
     dd = DataDownloader()
-    regions = ['PLK', 'JHM' ,'VYS']
-    data = dd.get_dict(regions)
-    # TODO ake su stlpce vypisat!!!
-    for reg in regions:
+    regions_to_process = ['PLK', 'JHM', 'VYS']
+    data = dd.get_dict(regions_to_process)
+    print("Stlpce dat: ", ', '.join(dd.valid_headers))
+    for regio in regions_to_process:
         print("-------------------------------")
-        print("Region:", reg)
-        this_region_data = data[np.char.startswith(data['p1'], dd.regions[reg], start=0, end=2)]
+        print("Region:", regio)
+        this_region_data = data[np.char.startswith(data['p1'], dd.regions[regio], start=0, end=2)]
         print("Pocet zaznamov pre region: ", this_region_data.size)
     print("Celkovy pocet zaznamov:", len(data))
