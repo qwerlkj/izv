@@ -198,7 +198,11 @@ class DataDownloader:
             else:
                 return_regions = np.append(return_regions, self.fetched_regions[reg])
 
-        return return_regions
+        return_dict = {}
+        for h in self.valid_headers:
+            return_dict[h] = return_regions[h]
+
+        return return_dict
 
 
 if __name__ == '__main__':
@@ -209,6 +213,6 @@ if __name__ == '__main__':
     for regio in regions_to_process:
         print("-------------------------------")
         print("Region:", regio)
-        this_region_data = data[np.char.startswith(data['p1'], dd.regions[regio], start=0, end=2)]
-        print("Pocet zaznamov pre region: ", this_region_data.size)
-    print("Celkovy pocet zaznamov:", len(data))
+        this_region_data = np.char.startswith(data['p1'], dd.regions[regio], start=0, end=2) # data[np.char.startswith(data['p1'], dd.regions[regio], start=0, end=2)]
+        print("Pocet zaznamov pre region: ", np.count_nonzero(this_region_data))
+    print("Celkovy pocet zaznamov:", len(data['p1']))

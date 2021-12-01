@@ -32,7 +32,8 @@ def plot_stat(data_source,
     c = 0
     # Spocitat pocet nehod pre kraj, na dany typ.
     for _id in x:
-        count = np.bincount(data_source[np.char.startswith(data_source['p1'], _id, start=0, end=2)]['p24'], minlength=6)
+        count = np.bincount(data_source['p24'][np.char.startswith(data_source['p1'], _id, start=0, end=2)], minlength=6)
+        #count = np.bincount(data_source[np.char.startswith(data_source['p1'], _id, start=0, end=2)]['p24'], minlength=6)
         z_data[c] = count
         c += 1
     z_data = z_data.T
