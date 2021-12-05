@@ -72,8 +72,22 @@ def get_dataframe(filename: str, verbose: bool = False) -> pd.DataFrame:
 
 def plot_roadtype(df: pd.DataFrame, fig_location: str = None,
                   show_figure: bool = False):
-    pass
+    road_names = {1: "Dvojpruhová", 2: 'Trojpruhová', 3: 'Štvojpruhová',
+                  4: 'Štvojpruhová', 5: 'Viacpruhová', 6: 'Rýchlostná', 0: 'Iná'}
+    region = ('JHM' == df['region']) | \
+             ('ZLK' == df['region']) | \
+             ('PLK' == df['region']) | \
+             ('VYS' == df['region'])
+    dfv = df[region][['region', 'p21']].copy()
+    dfv['road_count'] = np.ones(dfv['p21'].size)
+    for k,v in road_names.items():
+        dfv.loc[dfv['p21'] == k, 'p21'] = v
+    done = dfv.groupby(["region", 'p21']).count().reset_index()
+    sns.catplot(data=done, x='region', col="p21", y='road_count', kind='bar', col_wrap=3)
+    plt.show()
+    return done
 
+# %%
 
 # Ukol3: zavinění zvěří
 def plot_animals(df: pd.DataFrame, fig_location: str = None,
@@ -95,7 +109,9 @@ if __name__ == "__main__":
     df = get_dataframe("accidents.pkl.gz", True)  # tento soubor si stahnete sami, při testování pro hodnocení bude existovat
     types = df.dtypes
     # %%
-    plot_roadtype(df, fig_location="01_roadtype.png", show_figure=True)
+    x = plot_roadtype(df, fig_location="01_roadtype.png", show_figure=True)
     # %%
     plot_animals(df, "02_animals.png", True)
     plot_conditions(df, "03_conditions.png", True)
+    # %%
+    plt.remove();
