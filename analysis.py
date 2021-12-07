@@ -93,7 +93,6 @@ if __name__ == "__main__":
     # funkce.
     # %%
     df = get_dataframe("accidents.pkl.gz", True)  # tento soubor si stahnete sami, při testování pro hodnocení bude existovat
-    types = df.dtypes
     # %%
     plot_roadtype(df, fig_location="01_roadtype.png", show_figure=True)
     # %%
