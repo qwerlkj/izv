@@ -117,7 +117,6 @@ def plot_animals(df: pd.DataFrame, fig_location: str = None,
         df_fault.loc[df_fault['p10'] == k, 'p10'] = v
 
     df_fault['count'] = np.ones(df_fault['p10'].size)
-    print(df_fault.dtypes)
     done = df_fault.groupby(['region', 'p10', 'month']).count().reset_index()
     col_order = ['JHM', 'PLK', 'VYS', 'ZLK']
     g = sns.catplot(data=done, x='month', hue='p10', col="region",
