@@ -1,14 +1,12 @@
 #!/usr/bin/env python3.9
 # coding=utf-8
-# %%
 from matplotlib import pyplot as plt
-from matplotlib.dates import DateFormatter, AutoDateLocator
+from matplotlib.dates import DateFormatter
 import pandas as pd
 import seaborn as sns
 import numpy as np
 import os
 
-# %%
 # muzete pridat libovolnou zakladni knihovnu ci knihovnu predstavenou na prednaskach
 # dalsi knihovny pak na dotaz
 
@@ -27,6 +25,15 @@ Poznámka: zobrazujte na 1 desetinné místo (.1f) a počítejte, že 1 MB = 1e6
 
 
 def get_dataframe(filename: str, verbose: bool = False) -> pd.DataFrame:
+    """
+    Funkcia, ktorá načíta zo súboru dáta a prevedie stĺpce na potrebné dátové typy.
+    Args:
+        filename: cesta k súboru
+        verbose: výpis veľkosti dataframu v pameti
+
+    Returns: pd.DataFrame
+
+    """
     MB_IN_BYTES = 1_048_576
     df = pd.read_pickle(filename)
     before_memory = 0.0
@@ -69,6 +76,16 @@ def get_dataframe(filename: str, verbose: bool = False) -> pd.DataFrame:
 
 def plot_roadtype(df: pd.DataFrame, fig_location: str = None,
                   show_figure: bool = False):
+    """
+    Zobrazí alebo uloží graf počtu nehôd v regiónoch JHM, ZLK, PLK, VYS, podľa druhu ciest.
+    Args:
+        df: pd.DataFrame
+        fig_location: cesta na uloženie grafu
+        show_figure: ukáž graf
+
+    Returns: Graf
+
+    """
     road_names = {1: "Dvojpruhová", 2: 'Trojpruhová', 3: 'Štvojpruhová',
                   4: 'Štvojpruhová', 5: 'Viacpruhová', 6: 'Rýchlostná', 0: 'Iná'}
     region = ('JHM' == df['region']) | \
@@ -103,6 +120,16 @@ def plot_roadtype(df: pd.DataFrame, fig_location: str = None,
 # Ukol3: zavinění zvěří
 def plot_animals(df: pd.DataFrame, fig_location: str = None,
                  show_figure: bool = False):
+    """
+    Zobrazí alebo uloží graf počtu nehôd v regiónoch JHM, ZLK, PLK, VYS, podľa zavinenia.
+    Args:
+        df: pd.DataFrame
+        fig_location: cesta na uloženie grafu
+        show_figure: ukáž graf
+
+    Returns: Graf
+
+    """
     filter = (df['p58'] == 5) & (df['date'] < '2021-01-01')
     filter &= ('JHM' == df['region']) | \
               ('ZLK' == df['region']) | \
@@ -140,6 +167,15 @@ def plot_animals(df: pd.DataFrame, fig_location: str = None,
 # Ukol 4: Povětrnostní podmínky
 def plot_conditions(df: pd.DataFrame, fig_location: str = None,
                     show_figure: bool = False):
+    """
+    Zobrazí alebo uloží graf počtu nehôd v regiónoch JHM, ZLK, PLK, VYS, podľa poveternostných podmienok.
+    Args:
+        df: pd.DataFrame
+        fig_location: cesta na uloženie grafu
+        show_figure: ukáž graf
+
+    Returns: Graf
+    """
     filter = (df['p18'] != 0) & (df['date'] < '2021-01-31')
     REGIONS = ['JHM', 'ZLK', 'PLK', 'VYS']
     region_filter = None
