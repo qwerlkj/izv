@@ -5,7 +5,7 @@ import pandas as pd
 import geopandas
 import matplotlib.pyplot as plt
 import contextily as ctx
-import sklearn.cluster
+import sklearn.cluster as cluster
 import numpy as np
 
 
@@ -19,6 +19,7 @@ def make_geo(df: pd.DataFrame) -> geopandas.GeoDataFrame:
     gdf = geopandas.GeoDataFrame(df,
                                  geometry=geopandas.points_from_xy(df['d'], df['e']),
                                  crs="EPSG:5514")
+    gdf = gdf[~gdf.is_empty]
     return gdf
 
 
@@ -27,7 +28,7 @@ def plot_geo(gdf: geopandas.GeoDataFrame, fig_location: str = None,
              show_figure: bool = False):
     """ Vykresleni grafu s sesti podgrafy podle lokality nehody 
      (dalnice vs prvni trida) pro roky 2018-2020 """
-    gdfn = gdf[(gdf['region'] == 'JHM')].to_crs("epsg:3857")
+    gdfn = gdf[(gdf['region'] == 'JHM')].copy().to_crs("epsg:3857")
     fig, ax = plt.subplots(3, 2, figsize=(15,18))
     fig.subplots_adjust(left=0.05,
                     bottom=0.05,
@@ -55,8 +56,30 @@ def plot_geo(gdf: geopandas.GeoDataFrame, fig_location: str = None,
 # %%
 def plot_cluster(gdf: geopandas.GeoDataFrame, fig_location: str = None,
                  show_figure: bool = False):
-    """ Vykresleni grafu s lokalitou vsech nehod v kraji shlukovanych do clusteru """
-    pass
+    """ Vykresleni grafu s lokalitou vsech nehod v kraji shlukovanych do clusteru
+        Skusal som KMeans, ale nevedel som odhadnut pocet
+        zhlukov. Potom som si otvoril dokumentaciu a pozeral co by som asi mohol potrebovat a
+        vybral som metodu AgglomerativeClusteting, pretože som vyuzil vzdialenostny prah
+        na urcenie jednotlivych usekov. Nakoniec som sa hral s prahom vzdialenosti az som
+        prisiel na hodnotu, ktora sa priblizuje ukazkovemu vystupu.
+    """
+    gdfn = gdf[(gdf['region'] == 'JHM') & (gdf['p36'] == 1)].to_crs(epsg=3857).copy()
+    coords = np.dstack([gdfn.geometry.x, gdfn.geometry.y]).reshape(-1,2)
+
+    model = cluster.AgglomerativeClustering(distance_threshold=160_000, n_clusters=None)
+    db = model.fit(coords)
+    gdfn['cluster'] = db.labels_
+    gdfn = gdfn.dissolve(by='cluster', aggfunc={"region": 'count'}).rename(columns={'region': 'cnt'})
+    fig, ax = plt.subplots(1, 1, figsize=(15, 13))
+    ax.set_title('Nehody v JHM kraji na cestách 1. triedy')
+    fig.tight_layout()
+    gdfn.plot(ax=ax, markersize=10, column=gdfn['cnt'], legend=True, vmin=0, legend_kwds={'orientation': 'horizontal', 'pad': 0, 'label': 'Počet nehôd v úseku'})
+    ax.set_axis_off()
+    ctx.add_basemap(ax=ax, crs=gdfn.crs, source=ctx.providers.Stamen.TonerLite)
+    if fig_location is not None:
+        fig.savefig(fig_location)
+    if show_figure:
+        fig.show()
 
 
 # %%
