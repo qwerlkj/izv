@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>IZV: Projekt část 1</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="./IZV_ Projekt část 1_files/github.css">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">IZV: Projekt část 1</h1>
+</header>
+<h1 id="projekt---první-část">Projekt - první část</h1>
+<p>Na svých mailech byste měli najít kompletní výstup z hodnocení první části projektu. Na této stránce naleznete jednak co se testovalo, ale také i nejčastější chyby. Na závěr zjistíte, jak hodnocení reklamovat či konzultovat.</p>
+<h2 id="statistika">Statistika</h2>
+<p>Velikosti souborů, které jste potřebovali (rozumné je cca 50 MB) <img src="./IZV_ Projekt část 1_files/plt_size.png"></p>
+<p>A rychlost zpracování: modře jsou ti, kteří nesplnili všechny podmínky (čas zpracování není validní) a oranžově ti, jejichž čas zpracování je v pořádku. <img src="./IZV_ Projekt část 1_files/plt_time.png"></p>
+<h2 id="testy">Testy</h2>
+<p>Pro testy byl nastaven limit 500 sekund (8,5 minuty) na každý test. I tak jsem se snažil ohodnotit ty, jejichž skript běžel delší dobu (i např. 20 minut).</p>
+<h3 id="test-1">Test 1</h3>
+<p>První test testuje formát odpovědi pro 2 kraje a že se stáhla všechna data</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb1-1" aria-hidden="true"></a><span class="im">from</span> download <span class="im">import</span> DataDownloader</span>
+<span id="cb1-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb1-2" aria-hidden="true"></a>dd <span class="op">=</span> DataDownloader()</span>
+<span id="cb1-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb1-3" aria-hidden="true"></a>data <span class="op">=</span> dd.get_dict([<span class="st">"JHM"</span>, <span class="st">"MSK"</span>])</span>
+<span id="cb1-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb1-4" aria-hidden="true"></a></span>
+<span id="cb1-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb1-5" aria-hidden="true"></a><span class="co"># overeni ze</span></span>
+<span id="cb1-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb1-6" aria-hidden="true"></a><span class="co"># 1) [data[x].shape[0] for x in data] je porad stejny</span></span>
+<span id="cb1-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb1-7" aria-hidden="true"></a><span class="co"># 2) </span></span>
+<span id="cb1-8"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb1-8" aria-hidden="true"></a><span class="co"># 3) data["p1"].shape[] == 95_835 +- 2</span></span></code></pre></div>
+<h2 id="test-2-plzeň">Test 2: Plzeň</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb2-1" aria-hidden="true"></a><span class="im">from</span> download <span class="im">import</span> DataDownloader</span>
+<span id="cb2-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb2-2" aria-hidden="true"></a>dd <span class="op">=</span> DataDownloader()</span>
+<span id="cb2-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb2-3" aria-hidden="true"></a>data <span class="op">=</span> dd.get_dict(<span class="st">"PLK"</span>)</span>
+<span id="cb2-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb2-4" aria-hidden="true"></a></span>
+<span id="cb2-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb2-5" aria-hidden="true"></a><span class="co"># overeni ze se podarilo nacist dost polozek (v tomto kraji jeden radek pro sloupce a-d je chybny</span></span></code></pre></div>
+<h2 id="test-2-karlovy-vary">Test 2: Karlovy Vary</h2>
+<p>Karlovy Vary mají 4 položky s duplicitním <code>p1</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb3-1" aria-hidden="true"></a>dd <span class="op">=</span> DataDownloader()</span>
+<span id="cb3-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb3-2" aria-hidden="true"></a>data <span class="op">=</span> dd.get_dict([<span class="st">"KVK"</span>])</span>
+<span id="cb3-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb3-3" aria-hidden="true"></a></span>
+<span id="cb3-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb3-4" aria-hidden="true"></a>un, cnts <span class="op">=</span> np.unique(data[<span class="st">"p1"</span>], return_counts<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb3-5" aria-hidden="true"></a><span class="cf">assert</span> <span class="kw">not</span> np.<span class="bu">any</span>(cnts <span class="op">!=</span> <span class="dv">1</span>)</span></code></pre></div>
+<h2 id="test-3">Test 3</h2>
+<p>Vytváření Pandas DataFrame (to, co jsem za vás udělal na 2. část projektu)</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb4-1" aria-hidden="true"></a><span class="im">from</span> download <span class="im">import</span> DataDownloader</span>
+<span id="cb4-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb4-2" aria-hidden="true"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb4-3" aria-hidden="true"></a>dd <span class="op">=</span> DataDownloader()</span>
+<span id="cb4-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb4-4" aria-hidden="true"></a>data <span class="op">=</span> dd.get_dict([<span class="st">"JHM"</span>, <span class="st">"MSK"</span>])</span>
+<span id="cb4-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb4-5" aria-hidden="true"></a>pd.DataFrame(data)</span></code></pre></div>
+<h2 id="test-4">Test 4</h2>
+<p>Test datových typů pro kraje "JHM" a "PLK" přes funkci <code>get_dict</code>:</p>
+<ul>
+<li>dostatek floatů (minimálně <code>d</code> a <code>e</code>) a integerů (sloupce <code>pX</code>)</li>
+<li>nejsou tam typy typu object, protože ty jsou pro numpy naprosto nevhodné (viz přednáška)</li>
+</ul>
+<h2 id="test-5">Test 5</h2>
+<p>Test souřadnic (sloupec <code>d</code> a <code>e</code>) pro kraje "JHM" a MSK" přes funkci <code>get_dict</code>:</p>
+<ul>
+<li>test, zda se jedná o floaty zda jejich zbytek po dělení 1 je kladné číslo (neztratili jste desetinnou čárku a správně ji převedli na tečku)</li>
+</ul>
+<h2 id="test-6">Test 6</h2>
+<p>Test formátování PEP8 - Python má jednoznačně definované, jak má vypadat kód. Často vám to napoví i nějakou špatnou konstrukci. V příštích částech bude kontrolováno striktněji, aktuálně je to pouze informativní.</p>
+<h2 id="test-7">Test 7</h2>
+<p>Test rychlosti - pouze pokud byl validní test 1 a test 4 (jinak byste dosáhli velmi rychlé implementace, protože jste třeba neřešili převod na floaty). Pokud jste se dostali pod čas 4 sekundy, dostali jste 2 body, jinak 1 bod (při splnění podmínek) Postup:</p>
+<ul>
+<li>5x
+<ul>
+<li>smazání cache</li>
+<li>volání <code>dd.get_dict(["JHM"])</code></li>
+</ul></li>
+<li>pokud je první čas vykonávání funkce moc dlouhý, tak se započítá jen ten (protože jste zřejmě i přes výslovné uvedení v dokumentaci cachovali výstup), jinak se číslo zprůměruje.</li>
+</ul>
+<h3 id="test-grafu">Test grafu</h3>
+<p>Volání</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb5-1" aria-hidden="true"></a>   <span class="ex">python3</span> get_stat.py --fig_location a.png</span>
+<span id="cb5-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb5-2" aria-hidden="true"></a>   <span class="ex">python3</span> get_stat.py --fig_location ./b.png</span>
+<span id="cb5-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb5-3" aria-hidden="true"></a>   <span class="ex">python3</span> get_stat.py --fig_location t/c.png</span></code></pre></div>
+<p>Zde jsem byl velmi benevolentní ve výstupních formátech. Testoval jsem to, zda se soubory správně vytvořily. Pro kvalitu vizualizace mi šlo zejména o to, aby</p>
+<ul>
+<li>graf vypadal rozumně</li>
+<li>byly splněny podmínky pro data</li>
+</ul>
+<p>Dále jsem hodnotil kvalitu kódů, jak moc jste se drželi <em>NumPy</em> a podobně. Většinu informací naleznete v komentáři.</p>
+<h2 id="častější-chyby-aneb-chybami-se-člověk-učí">Častější chyby (aneb chybami se člověk učí)</h2>
+<p>Nevhodná práce s argumenty:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb6-1" aria-hidden="true"></a>args <span class="op">=</span> parser.parse_args()</span>
+<span id="cb6-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb6-2" aria-hidden="true"></a><span class="cf">if</span> args.fig_location <span class="kw">and</span>  args.show_figure:</span>
+<span id="cb6-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb6-3" aria-hidden="true"></a>    plot_stat(dd.get_dict(regions),fig_location<span class="op">=</span>args.fig_location,show_figure<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb6-4" aria-hidden="true"></a><span class="cf">elif</span> args.fig_location:</span>
+<span id="cb6-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb6-5" aria-hidden="true"></a>    plot_stat(dd.get_dict(regions),fig_location<span class="op">=</span>args.fig_location)</span>
+<span id="cb6-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb6-6" aria-hidden="true"></a><span class="cf">elif</span> args.show_figure:</span>
+<span id="cb6-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb6-7" aria-hidden="true"></a>    plot_stat(dd.get_dict(regions),show_figure<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p>místo</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb7-1" aria-hidden="true"></a>args <span class="op">=</span> parser.parse_args()</span>
+<span id="cb7-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb7-2" aria-hidden="true"></a>plot_stat(dd.get_list(regions),fig_location<span class="op">=</span>args.fig_location,show_figure<span class="op">=</span>args.show_figure)</span></code></pre></div>
+<hr>
+<p>Špatná práce s kódováním - soubory jsou v kódování cp1250 a je nutné to specifikovat (jinak se defaultně bere utf-8)</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb8-1" aria-hidden="true"></a><span class="bu">open</span>(f, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">"cp1250"</span>)</span></code></pre></div>
+<hr>
+<p>Složitý kód místo využití slovníků</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb9-1" aria-hidden="true"></a><span class="cf">if</span> region <span class="op">==</span> <span class="st">"PHA"</span>:</span>
+<span id="cb9-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb9-2" aria-hidden="true"></a>    <span class="cf">if</span> <span class="va">self</span>.pha:</span>
+<span id="cb9-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb9-3" aria-hidden="true"></a>        tempArr <span class="op">=</span> <span class="va">self</span>.pha</span>
+<span id="cb9-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb9-4" aria-hidden="true"></a><span class="cf">if</span> region <span class="op">==</span> <span class="st">"STC"</span>:</span>
+<span id="cb9-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb9-5" aria-hidden="true"></a>    <span class="cf">if</span> <span class="va">self</span>.stc:</span>
+<span id="cb9-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb9-6" aria-hidden="true"></a>        tempArr <span class="op">=</span> <span class="va">self</span>.stc</span>
+<span id="cb9-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb9-7" aria-hidden="true"></a><span class="co"># ... atd pro všechny kraje</span></span></code></pre></div>
+<p>místo</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb10-1" aria-hidden="true"></a><span class="cf">try</span>:</span>
+<span id="cb10-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb10-2" aria-hidden="true"></a>   tempArr <span class="op">=</span> <span class="va">self</span>.res[region]</span>
+<span id="cb10-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb10-3" aria-hidden="true"></a><span class="cf">except</span> <span class="pp">KeyError</span>:</span>
+<span id="cb10-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb10-4" aria-hidden="true"></a>   <span class="co"># co se ma delat jinak?</span></span></code></pre></div>
+<hr>
+<p>Podobně i velmi dlouhé podmínky</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb11-1" aria-hidden="true"></a><span class="cf">if</span> region <span class="op">==</span> <span class="st">"PHA"</span>:</span>
+<span id="cb11-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb11-2" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">"00"</span></span>
+<span id="cb11-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb11-3" aria-hidden="true"></a><span class="cf">elif</span> region <span class="op">==</span> <span class="st">"STC"</span>:</span>
+<span id="cb11-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb11-4" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">"01"</span></span>
+<span id="cb11-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb11-5" aria-hidden="true"></a><span class="cf">elif</span> region <span class="op">==</span> <span class="st">"JHC"</span>:</span>
+<span id="cb11-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb11-6" aria-hidden="true"></a>    <span class="cf">return</span> <span class="st">"02"</span></span>
+<span id="cb11-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb11-7" aria-hidden="true"></a></span>
+<span id="cb11-8"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb11-8" aria-hidden="true"></a><span class="co"># mozno nahradit za</span></span>
+<span id="cb11-9"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb11-9" aria-hidden="true"></a>files <span class="op">=</span> {<span class="st">"PHA"</span>: <span class="st">"00"</span>, <span class="st">"STC"</span>: <span class="st">"01"</span>, <span class="st">"JHC"</span>: <span class="st">"02"</span>, .. }[region]</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-1" aria-hidden="true"></a><span class="cf">if</span> item <span class="op">==</span> <span class="st">"p1"</span>:</span>
+<span id="cb12-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-2" aria-hidden="true"></a>    tmp_data.append(np.zeros([length], dtype<span class="op">=</span> <span class="st">"U14"</span>))</span>
+<span id="cb12-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-3" aria-hidden="true"></a><span class="cf">elif</span> item <span class="op">==</span> <span class="st">"p36"</span>:</span>
+<span id="cb12-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-4" aria-hidden="true"></a>    tmp_data.append(np.zeros([length], dtype<span class="op">=</span> <span class="st">"i1"</span>))</span>
+<span id="cb12-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-5" aria-hidden="true"></a><span class="cf">elif</span> item <span class="op">==</span> <span class="st">"p37"</span>:</span>
+<span id="cb12-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-6" aria-hidden="true"></a>    tmp_data.append(np.zeros([length], dtype<span class="op">=</span> <span class="st">"i4"</span>))</span>
+<span id="cb12-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-7" aria-hidden="true"></a><span class="cf">elif</span> item <span class="op">==</span> <span class="st">"p2a"</span>:</span>
+<span id="cb12-8"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-8" aria-hidden="true"></a>    tmp_data.append(np.zeros([length], dtype<span class="op">=</span> <span class="st">"datetime64[D]"</span>))</span>
+<span id="cb12-9"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-9" aria-hidden="true"></a><span class="cf">elif</span> item <span class="op">==</span> <span class="st">"weekday(p2a)"</span>:</span>
+<span id="cb12-10"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-10" aria-hidden="true"></a>    tmp_data.append(np.zeros([length], dtype<span class="op">=</span> <span class="st">"i1"</span>))</span>
+<span id="cb12-11"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-11" aria-hidden="true"></a><span class="cf">elif</span> item <span class="op">==</span> <span class="st">"p2b"</span>:</span>
+<span id="cb12-12"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-12" aria-hidden="true"></a>    tmp_data.append(np.zeros([length], dtype<span class="op">=</span> <span class="st">"2i1"</span>))</span>
+<span id="cb12-13"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-13" aria-hidden="true"></a><span class="cf">elif</span> item <span class="op">==</span> <span class="st">"p6"</span>:</span>
+<span id="cb12-14"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-14" aria-hidden="true"></a>    tmp_data.append(np.zeros([length], dtype<span class="op">=</span> <span class="st">"i1"</span>))</span>
+<span id="cb12-15"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-15" aria-hidden="true"></a><span class="cf">elif</span> item <span class="op">==</span> <span class="st">"p7"</span>:</span>
+<span id="cb12-16"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-16" aria-hidden="true"></a>    tmp_data.append(np.zeros([length], dtype<span class="op">=</span> <span class="st">"i1"</span>))</span>
+<span id="cb12-17"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-17" aria-hidden="true"></a></span>
+<span id="cb12-18"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-18" aria-hidden="true"></a><span class="co"># mozno nahradit za </span></span>
+<span id="cb12-19"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-19" aria-hidden="true"></a>dtypes <span class="op">=</span> {<span class="st">"p1"</span>: <span class="st">"U14"</span>, <span class="st">"p36"</span>: <span class="st">"i1"</span>, ...}    </span>
+<span id="cb12-20"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb12-20" aria-hidden="true"></a>tmp_data.append(np.zeros([length], dtype<span class="op">=</span> dtypes[item]))            </span></code></pre></div>
+<hr>
+<p>Kód přímo v modulu - dělá problém při importování, nutno použít konstrukci</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb13-1" aria-hidden="true"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb13-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb13-2" aria-hidden="true"></a>    do_code()</span>
+<span id="cb13-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb13-3" aria-hidden="true"></a>    do_code2()</span></code></pre></div>
+<hr>
+<p>Vytváření adresářů a snaha pod stejný adresář uložit i obrázek</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb14-1" aria-hidden="true"></a><span class="cf">if</span> <span class="kw">not</span> os.path.exists(fig_location):</span>
+<span id="cb14-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb14-2" aria-hidden="true"></a>    os.mkdir(fig_location)</span>
+<span id="cb14-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb14-3" aria-hidden="true"></a><span class="co"># ... nejaky kod - fig_location je jiz adresarem!</span></span>
+<span id="cb14-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb14-4" aria-hidden="true"></a>plt.savefig(fig_location)</span></code></pre></div>
+<p>správný postup:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb15-1" aria-hidden="true"></a>d <span class="op">=</span> os.path.dirname(path) </span>
+<span id="cb15-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb15-2" aria-hidden="true"></a><span class="cf">if</span> d <span class="kw">and</span> <span class="kw">not</span> os.path.isdir(d): <span class="co"># nutne testovat i "d" protoze path muze byt i "fig.png"</span></span>
+<span id="cb15-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb15-3" aria-hidden="true"></a>    os.makedirs(d, exists_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb15-4" aria-hidden="true"></a>plt.savefig(path)</span></code></pre></div>
+<hr>
+<p>Multplatformní práce s adresáři - v Linuxu je oddělovač / , ve Windows je to \. Proto se musí pracovat s</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb16-1" aria-hidden="true"></a><span class="va">self</span>.__folder <span class="op">=</span> os.getcwd() <span class="op">+</span> <span class="st">"</span><span class="ch">\\</span><span class="st">"</span> <span class="op">+</span> folder</span>
+<span id="cb16-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb16-2" aria-hidden="true"></a><span class="co"># vs</span></span>
+<span id="cb16-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb16-3" aria-hidden="true"></a><span class="va">self</span>.__folder <span class="op">=</span> os.getcwd() <span class="op">+</span> os.path.sep <span class="op">+</span> folder</span>
+<span id="cb16-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb16-4" aria-hidden="true"></a><span class="va">self</span>.__folder <span class="op">=</span> os.path.join(os.getcwd, folder) <span class="co"># nejlepsi</span></span></code></pre></div>
+<hr>
+<p>Volání inicializátoru objektu</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb17-1" aria-hidden="true"></a>xd<span class="op">=</span>DataDownloader()</span>
+<span id="cb17-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb17-2" aria-hidden="true"></a>xd.<span class="fu">__init__</span>() <span class="co"># úplně zbytečné, použilo se dřív</span></span></code></pre></div>
+<hr>
+<p>Nevhodný výpočet relativního počtu</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb18-1" aria-hidden="true"></a><span class="cf">for</span> ind, row <span class="kw">in</span> <span class="bu">enumerate</span>(data_set):</span>
+<span id="cb18-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb18-2" aria-hidden="true"></a>    in_total <span class="op">=</span> row.<span class="bu">sum</span>()</span>
+<span id="cb18-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb18-3" aria-hidden="true"></a>    data_set_percent[ind] <span class="op">=</span> (row<span class="op">/</span>in_total)<span class="op">*</span><span class="dv">100</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb19-1" aria-hidden="true"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(y_labels)):</span>
+<span id="cb19-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb19-2" aria-hidden="true"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(x_labels)):</span>
+<span id="cb19-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb19-3" aria-hidden="true"></a>        data2[i, j] <span class="op">=</span> data1[i, j] <span class="op">/</span> np.<span class="bu">sum</span>(data_source[<span class="st">"p24"</span>] <span class="op">==</span> i) <span class="op">*</span> <span class="dv">100</span></span></code></pre></div>
+<p>místo lepšího:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb20-1" aria-hidden="true"></a>data2 <span class="op">=</span> <span class="dv">100</span> <span class="op">*</span> values <span class="op">/</span> np.<span class="bu">sum</span>(values, axis<span class="op">=</span><span class="dv">1</span>).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span></code></pre></div>
+<hr>
+<p>Počítání položek při zobrazování - moc jste nevyužívali možností numpy (které byly přímo ukázany na přednášce. Počítání položek pro jednotlivý rok a kraj je nejjednodušší jako:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb21-1" aria-hidden="true"></a>   ((data[<span class="st">"region"</span>] <span class="op">==</span> <span class="st">"JHM"</span>) <span class="op">&amp;</span> (data[<span class="st">"p24"</span>] <span class="op">==</span> <span class="dv">2</span>)).<span class="bu">sum</span>()</span></code></pre></div>
+<p>V indexování boolovským polem je důležitá délka pole. Není tedy potřeba dávat <code>region</code> a <code>p24</code> dohromady</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb22-1" aria-hidden="true"></a>data <span class="op">=</span> np.stack((np.array([regions[x] <span class="cf">for</span> x <span class="kw">in</span> data_source.get(<span class="st">"region"</span>)],dtype<span class="op">=</span>np.uint8),data_source.get(<span class="st">"p24"</span>)),axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div>
+<p>Pro zajímavost přikládám ukázku, jak se dala vypočítat a zobrazit data pro graf.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-1" aria-hidden="true"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb23-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-2" aria-hidden="true"></a></span>
+<span id="cb23-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-3" aria-hidden="true"></a>reasons <span class="op">=</span> {</span>
+<span id="cb23-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-4" aria-hidden="true"></a>    <span class="dv">1</span>: <span class="st">"Přerušovaná žlutá"</span>,</span>
+<span id="cb23-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-5" aria-hidden="true"></a>    <span class="dv">2</span>: <span class="st">"Semafor mimo provoz"</span>,</span>
+<span id="cb23-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-6" aria-hidden="true"></a>    <span class="dv">3</span>: <span class="st">"Dopravními značky"</span>,</span>
+<span id="cb23-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-7" aria-hidden="true"></a>    <span class="dv">4</span>: <span class="st">"Přenosné dopravní značky"</span>,</span>
+<span id="cb23-8"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-8" aria-hidden="true"></a>    <span class="dv">5</span>: <span class="st">"Nevyznačena"</span>,</span>
+<span id="cb23-9"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-9" aria-hidden="true"></a>    <span class="dv">0</span>: <span class="st">"Žádná úprava"</span></span>
+<span id="cb23-10"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-10" aria-hidden="true"></a>}</span>
+<span id="cb23-11"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-11" aria-hidden="true"></a></span>
+<span id="cb23-12"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-12" aria-hidden="true"></a><span class="kw">def</span> hide_items(x):</span>
+<span id="cb23-13"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-13" aria-hidden="true"></a>    r <span class="op">=</span> x.copy()</span>
+<span id="cb23-14"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-14" aria-hidden="true"></a>    r[r <span class="op">==</span> <span class="dv">0</span>] <span class="op">=</span> np.nan</span>
+<span id="cb23-15"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-15" aria-hidden="true"></a>    <span class="cf">return</span> r</span>
+<span id="cb23-16"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-16" aria-hidden="true"></a></span>
+<span id="cb23-17"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-17" aria-hidden="true"></a>regions <span class="op">=</span> <span class="bu">sorted</span>(np.unique(data_source[<span class="st">"region"</span>]))</span>
+<span id="cb23-18"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-18" aria-hidden="true"></a>values <span class="op">=</span> np.zeros((<span class="bu">len</span>(reasons), <span class="bu">len</span>(regions)))</span>
+<span id="cb23-19"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-19" aria-hidden="true"></a></span>
+<span id="cb23-20"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-20" aria-hidden="true"></a><span class="cf">for</span> zid, (zcode, zname) <span class="kw">in</span> <span class="bu">enumerate</span>(reasons.items()):</span>
+<span id="cb23-21"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-21" aria-hidden="true"></a>    <span class="cf">for</span> kid, kname <span class="kw">in</span> <span class="bu">enumerate</span>(regions):</span>
+<span id="cb23-22"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-22" aria-hidden="true"></a>        values[zid, kid] <span class="op">=</span> np.<span class="bu">sum</span>((data_source[<span class="st">"region"</span>] <span class="op">==</span> kname) <span class="op">&amp;</span> (data_source[<span class="st">"p24"</span>] <span class="op">==</span> zcode))</span>
+<span id="cb23-23"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-23" aria-hidden="true"></a></span>
+<span id="cb23-24"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-24" aria-hidden="true"></a>pos <span class="op">=</span> ax1.imshow(hide_items(values), norm<span class="op">=</span>LogNorm(vmin<span class="op">=</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="fl">1e5</span>))</span>
+<span id="cb23-25"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-25" aria-hidden="true"></a>fig.colorbar(pos, ax<span class="op">=</span>ax1, label<span class="op">=</span><span class="st">"Počet nehod"</span>)</span>
+<span id="cb23-26"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-26" aria-hidden="true"></a></span>
+<span id="cb23-27"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-27" aria-hidden="true"></a>settings <span class="op">=</span> <span class="bu">dict</span>(</span>
+<span id="cb23-28"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-28" aria-hidden="true"></a>    yticks<span class="op">=</span>np.arange(<span class="bu">len</span>(reasons)),</span>
+<span id="cb23-29"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-29" aria-hidden="true"></a>    yticklabels<span class="op">=</span>reasons.values(),</span>
+<span id="cb23-30"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-30" aria-hidden="true"></a>    xticks<span class="op">=</span>np.arange(<span class="bu">len</span>(regions)),</span>
+<span id="cb23-31"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-31" aria-hidden="true"></a>    xticklabels<span class="op">=</span>regions</span>
+<span id="cb23-32"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-32" aria-hidden="true"></a>    )</span>
+<span id="cb23-33"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-33" aria-hidden="true"></a></span>
+<span id="cb23-34"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-34" aria-hidden="true"></a>ax1.<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Absolutně"</span>, <span class="op">**</span>settings)</span>
+<span id="cb23-35"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-35" aria-hidden="true"></a></span>
+<span id="cb23-36"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-36" aria-hidden="true"></a>pos <span class="op">=</span> ax2.imshow(<span class="dv">100</span><span class="op">*</span>hide_items(values <span class="op">/</span> np.<span class="bu">sum</span>(values, axis<span class="op">=</span><span class="dv">1</span>).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)), cmap<span class="op">=</span><span class="st">"plasma"</span>, vmin<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb23-37"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-37" aria-hidden="true"></a>fig.colorbar(pos, ax<span class="op">=</span>ax2, label<span class="op">=</span><span class="st">"Podíl nehod pro danou příčinu [%]"</span>)</span>
+<span id="cb23-38"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-38" aria-hidden="true"></a>ax2.<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Relativně vůči příčině"</span>, <span class="op">**</span>settings)</span>
+<span id="cb23-39"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-39" aria-hidden="true"></a></span>
+<span id="cb23-40"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb23-40" aria-hidden="true"></a>plt.tight_layout()</span></code></pre></div>
+<p>Také jste často špatně přistupovali k 2D poli</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb24-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb24-1" aria-hidden="true"></a>result[r][v] <span class="co"># nevhodné, dělá se pohled</span></span>
+<span id="cb24-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb24-2" aria-hidden="true"></a>results[r, v] <span class="co"># mnohem lepší</span></span></code></pre></div>
+<hr>
+<p>Prace se zip soubory je možná napřímo bez rozbalování</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb25-1" aria-hidden="true"></a><span class="cf">with</span> zipfile.ZipFile(<span class="st">"data.zip"</span>) <span class="im">as</span> zf:</span>
+<span id="cb25-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb25-2" aria-hidden="true"></a>    <span class="cf">with</span> zf.<span class="bu">open</span>(<span class="st">"01.csv"</span>, <span class="st">"r"</span>) <span class="im">as</span> f:</span>
+<span id="cb25-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj01.html#cb25-3" aria-hidden="true"></a>        f.read()</span></code></pre></div>
+<h1 id="opravy-a-reklamace">Opravy a reklamace</h1>
+<p>Pokud nerozumíte hodnocení, nebo máte pocit, že kvůli jedné malé chybě (typicky špatný výstupní formát), jste přišli o hodně bodů, můžete využít reklamace. Reklamace proběhnou ve čtvrtek 25. 11. 2021 v 9:00 až 10:30 - buď fyzicky (v L307) nebo online přes MS Teams (kde mě můžete najít).</p>
+
+
+</body></html>

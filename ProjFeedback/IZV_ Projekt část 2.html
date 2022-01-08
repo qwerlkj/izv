@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>IZV: Projekt část 2</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="./IZV_ Projekt část 2_files/github.css">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">IZV: Projekt část 2</h1>
+</header>
+<h1 id="hodnocení-druhé-části-projektu">Hodnocení druhé části projektu</h1>
+<p>Na svých mailech byste měli najít kompletní výstup z hodnocení druhé části projektu. Na této stránce naleznete jednak co se testovalo, ale také i nejčastější chyby. Na závěr uvidíte referenční řešení druhého grafu (funkce <code>plot_conditions</code>)</p>
+<h2 id="testování">Testování</h2>
+<p>Ve výpisu naleznete tyto výstupy</p>
+<pre><code> pouzite kategoricke typy (&gt;=2) (az 1 bodu)
+ ostatni typy jsou korektni (ints&gt;30 &amp; floats&gt;=6) (az 1 bodu)
+</code></pre>
+<p>Bylo nutné opravdu použít <code>.astype("category")</code>. Někteří si nahradili hodnoty za integery, čímž ale ztratili informaci o tom, jaká hodnota to je. Častou chybou bylo to, že se všechny integery nahrazovaly kategorií. To ovšem pak dělá problémy: při čtení se musí dekódovat int (interní) na int (hodnotu). Druhým problémem je pak to, že se třeba nedá porovnávat. Někdo dokonce i float převedl na kategorii.</p>
+<pre><code> vhodne vyuziti pameti (&lt; 500 MB) (az 1 bodu)
+ spravne konvertovane datum (rok 2016 - 2021) (az 1 bodu)
+</code></pre>
+<p>Pokud byly zvolené správné datové typy, nebyl problém se pod 0.5 GB dostat. Také jsem testoval, zda jste konvertovali správně datum, tj <code>df["date"].dt.year</code> byl mezi 2016 a 2021.</p>
+<pre><code> funkce get_dataframe ma spravne docstring (PEP257) (az 0.125 bodu)
+ funkce plot_roadtype ma spravne docstring (PEP257) (az 0.125 bodu)
+ funkce plot_animals ma spravne docstring (PEP257) (az 0.125 bodu)
+ funkce plot_conditions ma spravne docstring (PEP257) (az 0.125 bodu)
+</code></pre>
+<p>Pokud se píše funkce v pythonu, je nutné ji dokumentovat. Python má jasně definovanou normu PEP257, která říká, jak má dokumentační řetězec vypadat. Testoval jsem pomocí <code>get_dataframe.__doc__ is not None</code>. Pozor, formálně není správně ani @brief, @param a podobně, jak znáte z C/C++.</p>
+<pre><code> funkce plot_roadtype trva do 1000 ms (az 0.5 bodu)
+ kvalita kodu funkce plot_roadtype (az 2 bodu)
+ vizualni dojem z grafu plot_roadtype (az 2 bodu)
+ funkce plot_animals trva do 1200 ms (az 0.5 bodu)
+ kvalita kodu funkce plot_animals (az 2 bodu)
+ vizualni dojem z grafu plot_animals (az 2 bodu)
+ funkce plot_conditions trva do 1500 ms (az 0.5 bodu)
+ kvalita kodu funkce plot_conditions (az 2 bodu)
+ vizualni dojem z grafu plot_conditions (az 2 bodu)
+</code></pre>
+<p>Hodnotil jsem jak graf vypadá, jak jste ho tvořili a jestli tvorba byla +- efektivní (limity byly nastavené opravdu vysoko, ale byli i lidé, kterým se podařilo jeden graf generovat minutu).</p>
+<pre><code> kvalita kodu dle PEP8 (X kritickych, Y E2.., Z E7..)) (az 2 bodu)
+</code></pre>
+<p>Při psaní je potřeba dodržovat standardy (stejně jako v jiném jazyce, Python má však výhodu v tom, že formát psaní je definovaný od počátku a díky tomu jsou všechny aplikace konzistentní). Nepočítal jsem však úplně všechny chyby, ale pouze vybrané důležité a dovolil jsem mít jeden výskyt kritické chyby (u někoho se objevily např. věci jako mix tab a spaces, což je opravdu závažný prohřešek). Potom jsem povolil mít více výskytů chyb E2xx a E7xx.</p>
+<h2 id="statistika">Statistika</h2>
+<p>Někomu se podařilo napsat poměrně kompaktní a rychlý kód, někdo trošku zápasil. Přidávám pro srovnání histogramy přibližného počtu řádků kódu (bez mezer a komentářů - naleznete v hodnocení) a doby vykonávání pro jednotlivé funkce.</p>
+<p><img src="./IZV_ Projekt část 2_files/plt_p2_lines.png" alt="plt_lines.png"></p>
+<p><img src="./IZV_ Projekt část 2_files/plt_p2_times.png" alt="plt_times.png"></p>
+<p>Pro informaci: referenční řešení mělo časy 628 ms, 908 ms a 1034 ms a cca 140 řádků kódu. Tyto údaje berte orientačně (záleží na velikosti grafů, stylu psaní a komentování a podobně).</p>
+<h2 id="nejčastější-chyby">Nejčastější chyby</h2>
+<h3 id="nepoužívání-seabornu-a-figure-level-funkcí">Nepoužívání seabornu a figure-level funkcí</h3>
+<p>Všechny úlohy byly řešitelné za pomocí funkcí</p>
+<ul>
+<li><code>sns.catplot(kind="bar", ...)</code> - typy nehod</li>
+<li><code>sns.catplot(kind="bar", ...)</code> - zavinění</li>
+<li><code>sns.relplot(kind="line", ...)</code> - povětrnostní podmínky</li>
+</ul>
+<p>Pokud jste je nepoužili, tak se kód rapidně zesložiťoval</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-1" aria-hidden="true"></a>dvoupruh <span class="op">=</span> df[df[<span class="st">"p21"</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb6-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-2" aria-hidden="true"></a>tripruh <span class="op">=</span> df[df[<span class="st">"p21"</span>] <span class="op">==</span> <span class="dv">2</span>]</span>
+<span id="cb6-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-3" aria-hidden="true"></a>ctyrpruh <span class="op">=</span> df[df[<span class="st">"p21"</span>].isin([<span class="dv">3</span>, <span class="dv">4</span>])]</span>
+<span id="cb6-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-4" aria-hidden="true"></a>vicepruh <span class="op">=</span> df[df[<span class="st">"p21"</span>] <span class="op">==</span> <span class="dv">5</span>]</span>
+<span id="cb6-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-5" aria-hidden="true"></a>rychlostni <span class="op">=</span> df[df[<span class="st">"p21"</span>] <span class="op">==</span> <span class="dv">6</span>]</span>
+<span id="cb6-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-6" aria-hidden="true"></a>jine <span class="op">=</span> df[df[<span class="st">"p21"</span>] <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb6-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-7" aria-hidden="true"></a></span>
+<span id="cb6-8"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-8" aria-hidden="true"></a>sns.barplot(data<span class="op">=</span>dvoupruh, x<span class="op">=</span><span class="st">"region"</span>, y<span class="op">=</span><span class="st">"pocet"</span>, ax<span class="op">=</span>ax[<span class="dv">0</span>])</span>
+<span id="cb6-9"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-9" aria-hidden="true"></a>sns.barplot(data<span class="op">=</span>tripruh, x<span class="op">=</span><span class="st">"region"</span>, y<span class="op">=</span><span class="st">"pocet"</span>, ax<span class="op">=</span>ax[<span class="dv">1</span>])</span>
+<span id="cb6-10"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-10" aria-hidden="true"></a>sns.barplot(data<span class="op">=</span>ctyrpruh, x<span class="op">=</span><span class="st">"region"</span>, y<span class="op">=</span><span class="st">"pocet"</span>, ax<span class="op">=</span>ax[<span class="dv">2</span>])</span>
+<span id="cb6-11"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-11" aria-hidden="true"></a>sns.barplot(data<span class="op">=</span>vicepruh, x<span class="op">=</span><span class="st">"region"</span>, y<span class="op">=</span><span class="st">"pocet"</span>, ax<span class="op">=</span>ax[<span class="dv">3</span>])</span>
+<span id="cb6-12"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-12" aria-hidden="true"></a>sns.barplot(data<span class="op">=</span>rychlostni, x<span class="op">=</span><span class="st">"region"</span>, y<span class="op">=</span><span class="st">"pocet"</span>, ax<span class="op">=</span>ax[<span class="dv">4</span>])</span>
+<span id="cb6-13"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb6-13" aria-hidden="true"></a>sns.barplot(data<span class="op">=</span>jine, x<span class="op">=</span><span class="st">"region"</span>, y<span class="op">=</span><span class="st">"pocet"</span>, ax<span class="op">=</span>ax[<span class="dv">5</span>])</span></code></pre></div>
+<p>Párkrát se objevila implementace přes <code>FacetGrid</code>, která je zbytečně rozdělená a máme proto <code>catplot</code>, <code>relplot</code>, <code>displot</code> a <code>lmplot</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb7-1" aria-hidden="true"></a>g <span class="op">=</span> sns.FacetGrid(data<span class="op">=</span>df, col<span class="op">=</span><span class="st">"aux"</span>, col_wrap<span class="op">=</span><span class="dv">3</span>, sharex<span class="op">=</span><span class="va">False</span>, sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb7-2" aria-hidden="true"></a>g.map_dataframe(sns.countplot, x<span class="op">=</span><span class="st">"region"</span>, palette<span class="op">=</span><span class="st">"muted"</span>)</span>
+<span id="cb7-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb7-3" aria-hidden="true"></a><span class="co"># vs</span></span>
+<span id="cb7-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb7-4" aria-hidden="true"></a>g <span class="op">=</span> sns.catplot(kind<span class="op">=</span><span class="st">"count"</span>, data<span class="op">=</span>df, x<span class="op">=</span><span class="st">"region"</span>, col<span class="op">=</span><span class="st">"aux"</span>, ...)</span></code></pre></div>
+<h3 id="funkce-set-v-seaborn">Funkce <code>set</code> v Seaborn</h3>
+<p>Pokud už máte <em>Figure-level</em> objekt <code>g</code> typu <code>FacetGrid</code>, není potřeba mu nastavovat všechny parametry <em>axes</em> postupně:</p>
+<p><strong>Složitě</strong></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb8-1" aria-hidden="true"></a>    axes <span class="op">=</span> g.axes</span>
+<span id="cb8-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb8-2" aria-hidden="true"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">2</span>):</span>
+<span id="cb8-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb8-3" aria-hidden="true"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">2</span>):</span>
+<span id="cb8-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb8-4" aria-hidden="true"></a>            axes[i, j].set_xticklabels(labels)</span>
+<span id="cb8-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb8-5" aria-hidden="true"></a>            axes[i, j].set_ylabel(<span class="st">'Počet'</span>)</span>
+<span id="cb8-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb8-6" aria-hidden="true"></a>            <span class="co"># lepší je:</span></span>
+<span id="cb8-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb8-7" aria-hidden="true"></a>            axes[i, j].<span class="bu">set</span>(xticklabels<span class="op">=</span>labels, ylabel<span class="op">=</span><span class="st">'Počet'</span>)</span></code></pre></div>
+<p>Lépe</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb9-1" aria-hidden="true"></a><span class="cf">for</span> ax <span class="kw">in</span> g.axes.ravel():</span>
+<span id="cb9-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb9-2" aria-hidden="true"></a>    ax.set_xticklabels(labels)</span>
+<span id="cb9-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb9-3" aria-hidden="true"></a>    ax.set_ylabel(<span class="st">'Počet'</span>)</span>
+<span id="cb9-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb9-4" aria-hidden="true"></a>    <span class="co"># lepší je:</span></span>
+<span id="cb9-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb9-5" aria-hidden="true"></a>    ax.<span class="bu">set</span>(xticklabels<span class="op">=</span>labels, ylabel<span class="op">=</span><span class="st">'Počet'</span>)</span></code></pre></div>
+<p><strong>Jednoduše</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb10-1" aria-hidden="true"></a>    g.<span class="bu">set</span>(xticklabels<span class="op">=</span>labels, ylabel<span class="op">=</span><span class="st">'Počet'</span>)</span></code></pre></div>
+<h3 id="práce-s-vyjímkami">Práce s vyjímkami</h3>
+<p>Pokud je zadán nevalidní vstup, je vyjímka naprosto normání věc a měla by "probublat" až do nejvyšších pater volání. Zejména končit program uvnitř knihovní funkce (kterou jste psali) vám může udělat velké problémy při skládání větších aplikací a při znovu-využívání kódu</p>
+<p><strong>Špatně</strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb11-1" aria-hidden="true"></a><span class="cf">try</span>:</span>
+<span id="cb11-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb11-2" aria-hidden="true"></a>    fig.savefig(fig_location)</span>
+<span id="cb11-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb11-3" aria-hidden="true"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
+<span id="cb11-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb11-4" aria-hidden="true"></a>    <span class="bu">print</span>(<span class="st">"Špatný typ souboru. Zkuste .pdf nebo .png"</span>)</span></code></pre></div>
+<h3 id="graf-zavinění-zvěří">Graf zavinění zvěří</h3>
+<p>V grafu nehod zaviněných zvěří jste měli znázorňovat nehody, které se staly v důsledku vyhýbání zvěři (<code>p58 == 5</code>). Pokud jste to neudělali, tak jste vykreslovali úplně jiná data. V kódu provést takovou filtraci je maličkost, ale je problém, že vykreslujete něco odlišného a dochází tak k deziterpretaci dat.</p>
+<p><strong>Všechna data (nefiltrovaná)</strong></p>
+<p><img src="./IZV_ Projekt část 2_files/plt_p2_animals_all.png" alt="plt_p2_animals_all.py"></p>
+<p><strong>Filtrovaná data</strong></p>
+<p><img src="./IZV_ Projekt část 2_files/plt_p2_animals_p58.png" alt="plt_p2_animals_p58.py"></p>
+<h3 id="funkce-isin">Funkce <code>isin</code></h3>
+<p>Pro testování více podmínek najednou se často objevovalo řešení na následujícím principu. Všímaví asi poznají, že podmínku pro rok lze vytknout</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb12-1" aria-hidden="true"></a>df_regs <span class="op">=</span> df[((df[<span class="st">"region"</span>] <span class="op">==</span> regions[<span class="dv">0</span>]) <span class="op">&amp;</span> (df[<span class="st">'date'</span>].dt.year <span class="op">&lt;</span> <span class="dv">2021</span>)) <span class="op">|</span></span>
+<span id="cb12-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb12-2" aria-hidden="true"></a>             ((df[<span class="st">"region"</span>] <span class="op">==</span> regions[<span class="dv">1</span>]) <span class="op">&amp;</span> (df[<span class="st">'date'</span>].dt.year <span class="op">&lt;</span> <span class="dv">2021</span>)) <span class="op">|</span></span>
+<span id="cb12-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb12-3" aria-hidden="true"></a>             ((df[<span class="st">"region"</span>] <span class="op">==</span> regions[<span class="dv">2</span>]) <span class="op">&amp;</span> (df[<span class="st">'date'</span>].dt.year <span class="op">&lt;</span> <span class="dv">2021</span>)) <span class="op">|</span></span>
+<span id="cb12-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb12-4" aria-hidden="true"></a>             ((df[<span class="st">"region"</span>] <span class="op">==</span> regions[<span class="dv">3</span>]) <span class="op">&amp;</span> (df[<span class="st">'date'</span>].dt.year <span class="op">&lt;</span> <span class="dv">2021</span>))].copy()</span></code></pre></div>
+<p>Ovšem z pohledu kódu se nejedná o nejlepší (univerzální) řešení. Při přidání dalšího regionu se musí přepisovat kód. Proto je lepší použít následucí konstrukci.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb13-1" aria-hidden="true"></a>df_regs <span class="op">=</span> df[df[<span class="st">"region"</span>].isin(regions) <span class="op">&amp;</span> (df[<span class="st">'date'</span>].dt.year <span class="op">&lt;</span> <span class="dv">2021</span>)].copy()</span></code></pre></div>
+<p>Objevilo se i řešení využivající <code>query</code>, které může být elegantní pro rychlé testování. Někdy se však trochu komplikuje</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb14-1" aria-hidden="true"></a>    regions <span class="op">=</span> {<span class="st">"OLK"</span>: <span class="dv">0</span>, <span class="st">"MSK"</span>: <span class="dv">1</span>, <span class="st">"JHM"</span>: <span class="dv">2</span>, <span class="st">"ULK"</span>: <span class="dv">3</span>}  </span>
+<span id="cb14-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb14-2" aria-hidden="true"></a>    cond <span class="op">=</span> <span class="st">"| "</span>.join(<span class="dv">4</span><span class="op">*</span>[<span class="st">"region == '</span><span class="sc">{}</span><span class="st">' "</span>])</span>
+<span id="cb14-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb14-3" aria-hidden="true"></a>    cond <span class="op">=</span> <span class="ss">f"(</span><span class="sc">{</span>cond<span class="sc">}</span><span class="ss">) &amp; (p58 == 5)"</span></span>
+<span id="cb14-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb14-4" aria-hidden="true"></a>    df <span class="op">=</span> df.query(cond.<span class="bu">format</span>(<span class="op">*</span>(regions.keys()))).copy()</span></code></pre></div>
+<p>a je jednodušší se mu buď vyhnout</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb15-1" aria-hidden="true"></a>    df <span class="op">=</span> df[df[<span class="st">"region"</span>].isin(regions.keys()) <span class="op">&amp;</span> (df[<span class="st">"p58"</span>] <span class="op">==</span> <span class="dv">5</span>)]</span></code></pre></div>
+<p>nebo využít <code>@</code> notaci pro získání objektu existující v aktuálním <em>scope</em>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb16-1" aria-hidden="true"></a>    regs <span class="op">=</span> <span class="bu">list</span>(regions.keys())</span>
+<span id="cb16-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb16-2" aria-hidden="true"></a>    df <span class="op">=</span> df.query(<span class="st">"region in @regs and p58 == 5"</span>)</span></code></pre></div>
+<h3 id="využití-funkce-tight_layout">Využití funkce <code>tight_layout()</code></h3>
+<p>Často se stávalo, že legenda překrývala graf, popisky a titulky zasahovaly mimo kreslící plochu či do ostatních podgrafů atd. To řeší funkce <code>plt.tight_layout()</code> nebo <code>g.fig.tight_layout()</code>. Pokud používáme legendu nebo nadpis <code>suptitle</code>, tak je vhodné přidat parametr <code>rect = [0, 0, 1, 1]</code> (který značí relativní začátek a konec oblastí, kam se kreslí).</p>
+<h3 id="vizuální-a-jazyková-úroveň">Vizuální a jazyková úroveň</h3>
+<p>Když vizualizujete data, je nutné připravit rozumný pohled pro čtenáře. Proto by všechny <em>labely</em> měly mít stejnou velikost, titulky by měly být větší a nadřazený titulek grafu největší. Je vhodné si pohrát s poměrem stran (<code>aspect</code>). V těchto případech čtvercové grafy nevypadaly nejlépe.</p>
+<p>Další kapitolou je jazyk popisků. Měl by být spisovný, s diakritikou, rozumně volená velká/malá písmena. Opravdu vypadá zvláště, když mixujete např. slovenštinu s angličtinou.</p>
+<h3 id="zřetězený-zápis-operací-nad-dataframe">Zřetězený zápis operací nad DataFrame</h3>
+<p>Často potřebujeme provést sérii operací nad <code>DataFrame</code> objektem.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb17-1" aria-hidden="true"></a>df <span class="op">=</span> df.unstack(level<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">2</span>])</span>
+<span id="cb17-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb17-2" aria-hidden="true"></a>df <span class="op">=</span> df.resample(<span class="st">"M"</span>).<span class="bu">sum</span>()</span>
+<span id="cb17-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb17-3" aria-hidden="true"></a>df <span class="op">=</span> df.stack(level<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>])</span>
+<span id="cb17-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb17-4" aria-hidden="true"></a>df <span class="op">=</span> df.reset_index()</span></code></pre></div>
+<p>Někdy je přehlednější zápis operace patřící ke stejné transformaci zapsat za sebe.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb18-1" aria-hidden="true"></a>df <span class="op">=</span> df.unstack(level<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">2</span>]).resample(<span class="st">"M"</span>).<span class="bu">sum</span>().stack(level<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>]).reset_index()</span></code></pre></div>
+<h3 id="práce-s-pohledem--kopií">Práce s pohledem / kopií</h3>
+<p>Někomu se objevily následující problémy: udělal si nějakým způsobem pohled, do kterého pak zapisoval. Typicky Pandas hlásil chybu (někteří ji dokonce potlačili)</p>
+<pre><code>  .../analysis.py:185: SettingWithCopyWarning: 
+  A value is trying to be set on a copy of a slice from a DataFrame.
+  Try using .loc[row_indexer,col_indexer] = value instead
+</code></pre>
+<p>Řešení</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb20-1" aria-hidden="true"></a><span class="co"># přidání copy</span></span>
+<span id="cb20-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb20-2" aria-hidden="true"></a>df1 <span class="op">=</span> df[df[<span class="st">"region"</span>] <span class="op">==</span> <span class="st">"JHM"</span>].copy()</span>
+<span id="cb20-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb20-3" aria-hidden="true"></a>df1[<span class="st">"novy_sloupec"</span>] <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb20-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb20-4" aria-hidden="true"></a></span>
+<span id="cb20-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb20-5" aria-hidden="true"></a><span class="co"># náhrada</span></span>
+<span id="cb20-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb20-6" aria-hidden="true"></a>df[df[<span class="st">"region"</span>] <span class="op">==</span> <span class="st">"JHM"</span>][<span class="st">"sloupec"</span>] <span class="co"># toto je spatne!</span></span>
+<span id="cb20-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb20-7" aria-hidden="true"></a><span class="co"># za</span></span>
+<span id="cb20-8"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb20-8" aria-hidden="true"></a>df.loc[df[<span class="st">"region"</span>] <span class="op">==</span> <span class="st">"JHM"</span>, <span class="st">"sloupec"</span>]</span></code></pre></div>
+<p>Při vytváření kopie je vhodné pracovat s menším datasetem</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb21-1" aria-hidden="true"></a>new_df <span class="op">=</span> df.copy()[[<span class="st">'region'</span>,<span class="st">'p10'</span>, <span class="st">'p58'</span>, <span class="st">'date'</span>]]</span>
+<span id="cb21-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb21-2" aria-hidden="true"></a><span class="co"># 115 ms ± 1.51 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</span></span>
+<span id="cb21-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb21-3" aria-hidden="true"></a></span>
+<span id="cb21-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb21-4" aria-hidden="true"></a>new_df <span class="op">=</span> df[[<span class="st">'region'</span>,<span class="st">'p10'</span>, <span class="st">'p58'</span>, <span class="st">'date'</span>]].copy()</span>
+<span id="cb21-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb21-5" aria-hidden="true"></a><span class="co"># 15.3 ms ± 43 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)</span></span></code></pre></div>
+<h3 id="procházení-dat">Procházení dat</h3>
+<p>Zabijákem výkonnosti je procházení všech dat iterativně. Zejména pokud pracujeme s číselnými hodnotami.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-1" aria-hidden="true"></a><span class="kw">def</span> _convert_to_causes(row):</span>
+<span id="cb22-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-2" aria-hidden="true"></a>    <span class="cf">if</span> row[<span class="st">"p10"</span>] <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>]:</span>
+<span id="cb22-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-3" aria-hidden="true"></a>        <span class="cf">return</span> <span class="st">"řidičem"</span></span>
+<span id="cb22-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-4" aria-hidden="true"></a>    <span class="cf">elif</span> row[<span class="st">"p10"</span>] <span class="op">==</span> <span class="dv">4</span>:</span>
+<span id="cb22-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-5" aria-hidden="true"></a>        <span class="cf">return</span> <span class="st">"zvěří"</span></span>
+<span id="cb22-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-6" aria-hidden="true"></a>    <span class="cf">else</span>:</span>
+<span id="cb22-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-7" aria-hidden="true"></a>        <span class="cf">return</span> <span class="st">"jiné"</span></span>
+<span id="cb22-8"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-8" aria-hidden="true"></a></span>
+<span id="cb22-9"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-9" aria-hidden="true"></a>df[<span class="st">"p10_new"</span>] <span class="op">=</span> df.<span class="bu">apply</span>(<span class="kw">lambda</span> row: _convert_to_causes(row), axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb22-10"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-10" aria-hidden="true"></a><span class="co"># poznamka: lambda funkce je zbytecna</span></span>
+<span id="cb22-11"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-11" aria-hidden="true"></a><span class="co"># df["p10_new"] = df.apply(_convert_to_causes, axis=1)</span></span>
+<span id="cb22-12"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-12" aria-hidden="true"></a></span>
+<span id="cb22-13"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb22-13" aria-hidden="true"></a><span class="co"># 5.38 s ± 23.1 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)</span></span></code></pre></div>
+<p>Pokud bychom pracovali pouze s jednou sérií (ne celým <em>DataFrame</em>), tak ušetříme přeskládávání pár set megabytů v paměti (viz velikost datasetu z prvního úkolu).</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb23-1" aria-hidden="true"></a><span class="kw">def</span> _convert_to_causes(c):</span>
+<span id="cb23-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb23-2" aria-hidden="true"></a>    <span class="cf">if</span> c <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>]:</span>
+<span id="cb23-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb23-3" aria-hidden="true"></a>        <span class="cf">return</span> <span class="st">"řidičem"</span></span>
+<span id="cb23-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb23-4" aria-hidden="true"></a>    <span class="cf">elif</span> c <span class="op">==</span> <span class="dv">4</span>:</span>
+<span id="cb23-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb23-5" aria-hidden="true"></a>        <span class="cf">return</span> <span class="st">"zvěří"</span></span>
+<span id="cb23-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb23-6" aria-hidden="true"></a>    <span class="cf">else</span>:</span>
+<span id="cb23-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb23-7" aria-hidden="true"></a>        <span class="cf">return</span> <span class="st">"jiné"</span></span>
+<span id="cb23-8"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb23-8" aria-hidden="true"></a></span>
+<span id="cb23-9"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb23-9" aria-hidden="true"></a>df[<span class="st">"p10_new"</span>] <span class="op">=</span> df[<span class="st">"p10"</span>].<span class="bu">apply</span>(_convert_to_causes)</span>
+<span id="cb23-10"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb23-10" aria-hidden="true"></a><span class="co"># 53.2 ms ± 509 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)</span></span></code></pre></div>
+<p>Můžeme i logiku dotazů otočit a omezit další testování.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb24-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb24-1" aria-hidden="true"></a>df[<span class="st">"new_p10"</span>] <span class="op">=</span> <span class="st">"jiné"</span></span>
+<span id="cb24-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb24-2" aria-hidden="true"></a>df.loc[df[<span class="st">"p10"</span>] <span class="op">==</span> <span class="dv">4</span>, <span class="st">"new_p10"</span>] <span class="op">=</span> <span class="st">"zvěří"</span></span>
+<span id="cb24-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb24-3" aria-hidden="true"></a>df.loc[df[<span class="st">"p10"</span>].isin([<span class="dv">1</span>, <span class="dv">2</span>]), <span class="st">"new_p10"</span>] <span class="op">=</span> <span class="st">"řidičem"</span></span>
+<span id="cb24-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb24-4" aria-hidden="true"></a><span class="co"># 26.3 ms ± 52.6 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)</span></span></code></pre></div>
+<p><strong>Rozdíl časů:</strong> celkový rozdíl operace nad datasetem je 5.38 sekund versus 26.3 ms!!! Časy byly počítány pro celý rozsah. Mezi druhou a třetí implementací už není tak výrazný rozdíl, protože Pandas pracuje se <code>str</code> objekty jako s <code>PyObject</code>.</p>
+<p>Drobné zrychlení (za cenu toho, že musíme vyjmenovat všechny možnosti) nám přinese funkce <code>replace</code>.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb25-1" aria-hidden="true"></a>df[<span class="st">"p10_new"</span>] <span class="op">=</span> df[<span class="st">"p10"</span>].replace({</span>
+<span id="cb25-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb25-2" aria-hidden="true"></a>       <span class="op">**</span>{<span class="dv">1</span>: <span class="st">"řidičem"</span>, <span class="dv">2</span>: <span class="st">"řidičem"</span>, <span class="dv">4</span>: <span class="st">"zvěří"</span>}, </span>
+<span id="cb25-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb25-3" aria-hidden="true"></a>       <span class="op">**</span>{i: <span class="st">"jiné"</span> <span class="cf">for</span> i <span class="kw">in</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">0</span>]} <span class="co"># pro jednoduchost generátor</span></span>
+<span id="cb25-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb25-4" aria-hidden="true"></a>    })</span>
+<span id="cb25-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb25-5" aria-hidden="true"></a><span class="co"># 17.3 ms ± 336 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)</span></span></code></pre></div>
+<h3 id="vytváření-zbytečných-funkcí">Vytváření zbytečných funkcí</h3>
+<p>Často se vyskytovaly případy, kdy někdo přepisoval základní funkce Pandas do svých implementací. Zejména u úplně základních funkcí to bylo zbytečné.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb26-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-1" aria-hidden="true"></a><span class="kw">def</span> _remove_unwanted_data(df: pd.DataFrame, df_new: pd.DataFrame, data_to_keep: <span class="bu">list</span>):</span>
+<span id="cb26-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-2" aria-hidden="true"></a>    <span class="cf">for</span> column <span class="kw">in</span> df:</span>
+<span id="cb26-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-3" aria-hidden="true"></a>        <span class="cf">if</span> column <span class="kw">not</span> <span class="kw">in</span> data_to_keep:</span>
+<span id="cb26-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-4" aria-hidden="true"></a>            df_new.drop(columns<span class="op">=</span>column, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-5" aria-hidden="true"></a></span>
+<span id="cb26-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-6" aria-hidden="true"></a><span class="kw">def</span> _remove_rows(df: pd.DataFrame, index: <span class="bu">str</span>, rows: <span class="bu">list</span>):</span>
+<span id="cb26-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-7" aria-hidden="true"></a>    df.set_index(index, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-8"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-8" aria-hidden="true"></a>    df.drop(rows, axis<span class="op">=</span><span class="dv">0</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-9"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-9" aria-hidden="true"></a>    df.reset_index(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-10"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-10" aria-hidden="true"></a></span>
+<span id="cb26-11"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-11" aria-hidden="true"></a>_remove_unwanted_data(df, df_conditions, [<span class="st">"p18"</span>, <span class="st">"region"</span>, <span class="st">"Date"</span>])</span>
+<span id="cb26-12"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb26-12" aria-hidden="true"></a>_remove_rows(df_conditions, <span class="st">"region"</span>, [<span class="st">'HKK'</span>, <span class="st">'JHC'</span>, <span class="st">'JHM'</span>, <span class="st">'KVK'</span>, <span class="st">'MSK'</span>, <span class="st">'PAK'</span>, <span class="st">'PHA'</span>, <span class="st">'PLK'</span>, <span class="st">'STC'</span>, <span class="st">'ULK'</span>])</span></code></pre></div>
+<p>Při výběru dat přes indexaci <code>[]</code> je možné přímo získat položky, které potřebuji (sloupce nebo <em>boolean</em> podmínkou). Problém je však to, že <a href="https://www.google.com/search?q=how+to+remove+row+in+dataframe&amp;oq=how+to+remove+row+&amp;aqs=chrome.1.69i57j0i512l8j0i22i30.4307j0j4&amp;sourceid=chrome&amp;ie=UTF-8">Google</a> jako první nabídne <code>DataFrame.drop()</code>, což není nejefektivnější.</p>
+<p>Potom se dá výběr zjednodušit na dva (případně na jeden) výběry. Otázka je, jestli je výhodné vyjmenovat všechny položky, co nechceme (při výběru musíme negovat <code>~</code>), nebo jen ty čtyři, které chceme.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb27-1" aria-hidden="true"></a><span class="co"># existuji na to primo funkce</span></span>
+<span id="cb27-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb27-2" aria-hidden="true"></a>df_conditions <span class="op">=</span> df[[<span class="st">"p18"</span>, <span class="st">"region"</span>, <span class="st">"Date"</span>]]</span>
+<span id="cb27-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb27-3" aria-hidden="true"></a>df_conditions <span class="op">=</span> df[<span class="op">~</span>df[<span class="st">"region"</span>].isin([<span class="st">'HKK'</span>, <span class="st">'JHC'</span>, <span class="st">'JHM'</span>, <span class="st">'KVK'</span>, <span class="st">'MSK'</span>, <span class="st">'PAK'</span>, <span class="st">'PHA'</span>, <span class="st">'PLK'</span>, <span class="st">'STC'</span>, <span class="st">'ULK'</span>])]</span>
+<span id="cb27-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb27-4" aria-hidden="true"></a></span>
+<span id="cb27-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb27-5" aria-hidden="true"></a><span class="co"># nebo v jednom lokatoru</span></span>
+<span id="cb27-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb27-6" aria-hidden="true"></a>df_conditions <span class="op">=</span> df.loc[</span>
+<span id="cb27-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb27-7" aria-hidden="true"></a>         <span class="op">~</span>df[<span class="st">"region"</span>].isin([<span class="st">'HKK'</span>, <span class="st">'JHC'</span>, <span class="st">'JHM'</span>, <span class="st">'KVK'</span>, <span class="st">'MSK'</span>, <span class="st">'PAK'</span>, <span class="st">'PHA'</span>, <span class="st">'PLK'</span>, <span class="st">'STC'</span>, <span class="st">'ULK'</span>]), </span>
+<span id="cb27-8"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb27-8" aria-hidden="true"></a>         [<span class="st">"p18"</span>, <span class="st">"region"</span>, <span class="st">"Date"</span>]</span>
+<span id="cb27-9"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb27-9" aria-hidden="true"></a>        ]</span></code></pre></div>
+<h2 id="ukázka-řešení">Ukázka řešení</h2>
+<p>Přidávám i ukázku, jak nám využití funkcí seaborn a pandas mohlo ulehčit práci a mohli jsme jednoduše zobrazit graf povětrnostních podmínek.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-1" aria-hidden="true"></a><span class="kw">def</span> plot_conditions(df: pd.DataFrame, fig_location: <span class="bu">str</span> <span class="op">=</span> <span class="va">None</span>,</span>
+<span id="cb28-2"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-2" aria-hidden="true"></a>                    show_figure: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span>):</span>
+<span id="cb28-3"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-3" aria-hidden="true"></a>    df2 <span class="op">=</span> df.query(</span>
+<span id="cb28-4"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-4" aria-hidden="true"></a>        <span class="st">"region in ['JHM', 'MSK', 'OLK', 'ZLK'] and p18 != 0"</span>).copy()</span>
+<span id="cb28-5"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-5" aria-hidden="true"></a></span>
+<span id="cb28-6"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-6" aria-hidden="true"></a>    <span class="co"># Prejmenovani integeru na textovou reprezentaci</span></span>
+<span id="cb28-7"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-7" aria-hidden="true"></a>    df2[<span class="st">"Podmínky"</span>] <span class="op">=</span> df2[<span class="st">"p18"</span>].replace({</span>
+<span id="cb28-8"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-8" aria-hidden="true"></a>        <span class="dv">0</span>: <span class="st">"jiné"</span>,</span>
+<span id="cb28-9"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-9" aria-hidden="true"></a>        <span class="dv">1</span>: <span class="st">"neztížené"</span>,</span>
+<span id="cb28-10"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-10" aria-hidden="true"></a>        <span class="dv">2</span>: <span class="st">"mlha"</span>,</span>
+<span id="cb28-11"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-11" aria-hidden="true"></a>        <span class="dv">3</span>: <span class="st">"na počátku deště"</span>,</span>
+<span id="cb28-12"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-12" aria-hidden="true"></a>        <span class="dv">4</span>: <span class="st">"déšť"</span>,</span>
+<span id="cb28-13"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-13" aria-hidden="true"></a>        <span class="dv">5</span>: <span class="st">"sněžení"</span>,</span>
+<span id="cb28-14"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-14" aria-hidden="true"></a>        <span class="dv">6</span>: <span class="st">"náledí"</span>,</span>
+<span id="cb28-15"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-15" aria-hidden="true"></a>        <span class="dv">7</span>: <span class="st">"vítr"</span></span>
+<span id="cb28-16"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-16" aria-hidden="true"></a>    })</span>
+<span id="cb28-17"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-17" aria-hidden="true"></a></span>
+<span id="cb28-18"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-18" aria-hidden="true"></a>    <span class="co"># Otoceni tabulky do "sirokeho" format</span></span>
+<span id="cb28-19"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-19" aria-hidden="true"></a>    df2 <span class="op">=</span> df2.pivot_table(index<span class="op">=</span>[<span class="st">"date"</span>, <span class="st">"region"</span>], columns<span class="op">=</span>[<span class="st">"Podmínky"</span>], values<span class="op">=</span>[</span>
+<span id="cb28-20"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-20" aria-hidden="true"></a>                          <span class="st">"p1"</span>], aggfunc<span class="op">=</span><span class="st">"count"</span>).reset_index()</span>
+<span id="cb28-21"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-21" aria-hidden="true"></a>    </span>
+<span id="cb28-22"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-22" aria-hidden="true"></a>    <span class="co"># Shrnuti na mesice podle kazde podminky</span></span>
+<span id="cb28-23"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-23" aria-hidden="true"></a>    df2 <span class="op">=</span> df2.groupby(<span class="st">"region"</span>).resample(<span class="st">"1M"</span>, on<span class="op">=</span><span class="st">"date"</span>).agg(</span>
+<span id="cb28-24"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-24" aria-hidden="true"></a>        <span class="st">"sum"</span>).reset_index().melt([<span class="st">"date"</span>, <span class="st">"region"</span>])</span>
+<span id="cb28-25"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-25" aria-hidden="true"></a></span>
+<span id="cb28-26"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-26" aria-hidden="true"></a>    <span class="co"># Vytvoreni relacniho grafu (figure-level pristup)</span></span>
+<span id="cb28-27"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-27" aria-hidden="true"></a>    g <span class="op">=</span> sns.relplot(kind<span class="op">=</span><span class="st">"line"</span>, data<span class="op">=</span>df2,</span>
+<span id="cb28-28"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-28" aria-hidden="true"></a>                    x<span class="op">=</span><span class="st">"date"</span>, y<span class="op">=</span><span class="st">"value"</span>, hue<span class="op">=</span><span class="st">"Podmínky"</span>, col<span class="op">=</span><span class="st">"region"</span>,</span>
+<span id="cb28-29"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-29" aria-hidden="true"></a>                    col_wrap<span class="op">=</span><span class="dv">2</span>, height<span class="op">=</span><span class="dv">3</span>, aspect<span class="op">=</span><span class="fl">1.5</span>, facet_kws<span class="op">=</span><span class="bu">dict</span>(sharex<span class="op">=</span><span class="va">False</span>),</span>
+<span id="cb28-30"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-30" aria-hidden="true"></a>                    )</span>
+<span id="cb28-31"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-31" aria-hidden="true"></a></span>
+<span id="cb28-32"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-32" aria-hidden="true"></a>    <span class="co"># Nastaveni okraju do 1. 1. 2021 (filtrace roku 2021 pryc)</span></span>
+<span id="cb28-33"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-33" aria-hidden="true"></a>    g.<span class="bu">set</span>(xlim<span class="op">=</span>np.array([<span class="st">"2016-01-01"</span>, <span class="st">"2021-01-01"</span>], dtype<span class="op">=</span>df2[<span class="st">"date"</span>].dtype),</span>
+<span id="cb28-34"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-34" aria-hidden="true"></a>          ylim<span class="op">=</span>(<span class="dv">0</span>, <span class="va">None</span>),</span>
+<span id="cb28-35"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-35" aria-hidden="true"></a>          xlabel<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb28-36"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-36" aria-hidden="true"></a></span>
+<span id="cb28-37"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-37" aria-hidden="true"></a>    g.set_titles(<span class="st">"Kraj: </span><span class="sc">{col_name}</span><span class="st">"</span>)</span>
+<span id="cb28-38"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-38" aria-hidden="true"></a></span>
+<span id="cb28-39"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-39" aria-hidden="true"></a>    <span class="co"># Kazdemu grafu nastavime popisky x-ove osy spravne</span></span>
+<span id="cb28-40"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-40" aria-hidden="true"></a>    <span class="cf">for</span> ax <span class="kw">in</span> g.axes.ravel():</span>
+<span id="cb28-41"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-41" aria-hidden="true"></a>        xticks <span class="op">=</span> ax.get_xticks()</span>
+<span id="cb28-42"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-42" aria-hidden="true"></a>        ax.set_xticks(xticks)</span>
+<span id="cb28-43"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-43" aria-hidden="true"></a>        ax.set_xticklabels(</span>
+<span id="cb28-44"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-44" aria-hidden="true"></a>            [pd.to_datetime(tm, unit<span class="op">=</span><span class="st">'d'</span>).strftime(<span class="vs">r'%m/%y'</span>) <span class="cf">for</span> tm <span class="kw">in</span> xticks])</span>
+<span id="cb28-45"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-45" aria-hidden="true"></a>    <span class="cf">for</span> i <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">2</span>]: <span class="co"># a take popis y osy (jen u levych grafu)</span></span>
+<span id="cb28-46"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-46" aria-hidden="true"></a>        g.axes[i].set_ylabel(<span class="st">"Počet nehod"</span>)</span>
+<span id="cb28-47"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-47" aria-hidden="true"></a></span>
+<span id="cb28-48"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-48" aria-hidden="true"></a>    <span class="co"># Doladeni layoutu a ulozeni</span></span>
+<span id="cb28-49"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-49" aria-hidden="true"></a>    g.fig.tight_layout(rect<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">.85</span>, <span class="dv">1</span>))</span>
+<span id="cb28-50"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-50" aria-hidden="true"></a>    <span class="cf">if</span> fig_location:</span>
+<span id="cb28-51"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-51" aria-hidden="true"></a>        g.fig.savefig(fig_location)</span>
+<span id="cb28-52"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-52" aria-hidden="true"></a>    <span class="cf">if</span> show_figure:</span>
+<span id="cb28-53"><a href="https://www.fit.vutbr.cz/~mrazek/izv/eval_proj02.html#cb28-53" aria-hidden="true"></a>        g.fig.show()</span></code></pre></div>
+
+
+</body></html>
